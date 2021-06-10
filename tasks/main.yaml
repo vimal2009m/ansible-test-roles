@@ -1,0 +1,18 @@
+---
+- name: "Install httpd"
+  yum:
+    name: httpd
+    state: present
+  notify:
+    - restart_httpd_service
+  when: ansible_distribution == "CentOS"
+- name: "Copy files"
+  when: ansible_distribution == "CentOS"
+  copy: 
+    src: index.html
+    dest: /var/www/html/
+  notify:
+    - restart_httpd_service
+
+
+
